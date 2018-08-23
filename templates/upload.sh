@@ -1,9 +1,5 @@
 #!/bin/bash
 
-git stash
-git pull origin master --tags
-git stash pop
-
 VersionString=`grep -E 's.version.*=' __ProjectName__.podspec`
 VersionNumber=`tr -cd 0-9 <<<"$VersionString"`
 
@@ -17,5 +13,5 @@ git add .
 git commit -am ${NewVersionNumber}
 git tag ${NewVersionNumber}
 git push origin master --tags
-cd ~/.cocoapods/repos/CasaPasswordRepositoryStore && git pull origin master && cd - && pod repo push CasaPasswordRepositoryStore __ProjectName__.podspec --verbose --allow-warnings --use-libraries
+pod repo push CasaPasswordRepositoryStore __ProjectName__.podspec --verbose --allow-warnings --use-libraries --use-modular-headers
 
