@@ -7,6 +7,8 @@ projectName=""
 httpsRepo=""
 sshRepo=""
 homePage=""
+author=""
+email=""
 confirmed="n"
 
 getProjectName() {
@@ -41,17 +43,37 @@ getHomePage() {
     fi
 }
 
+getAuthorName() {
+    read -p "Enter Author: " author
+
+    if test -z "$author"; then
+        getAuthorName
+    fi
+}
+
+getEmail() {
+    read -p "Enter Email: " email
+
+    if test -z "$email"; then
+        getEmail
+    fi
+}
+
 getInfomation() {
     getProjectName
     getHTTPSRepo
     getSSHRepo
     getHomePage
+    getAuthorName
+    getEmail
 
     echo -e "\n${Default}================================================"
     echo -e "  Project Name  :  ${Cyan}${projectName}${Default}"
     echo -e "  HTTPS Repo    :  ${Cyan}${httpsRepo}${Default}"
     echo -e "  SSH Repo      :  ${Cyan}${sshRepo}${Default}"
     echo -e "  Home Page URL :  ${Cyan}${homePage}${Default}"
+    echo -e "  Author        :  ${Cyan}${author}${Default}"
+    echo -e "  Email         :  ${Cyan}${email}${Default}"
     echo -e "================================================\n"
 }
 
@@ -95,6 +117,9 @@ sed -i "" "s%__ProjectName__%${projectName}%g" "$podfilePath"
 sed -i "" "s%__ProjectName__%${projectName}%g" "$specFilePath"
 sed -i "" "s%__HomePage__%${homePage}%g"      "$specFilePath"
 sed -i "" "s%__HTTPSRepo__%${httpsRepo}%g"    "$specFilePath"
+sed -i "" "s%__Author__%${author}%g"    "$specFilePath"
+sed -i "" "s%__Email__%${email}%g"    "$specFilePath"
+
 echo "edit finished"
 
 echo "cleaning..."
